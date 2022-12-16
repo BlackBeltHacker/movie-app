@@ -22,28 +22,44 @@ function displayMatches(matches) {
 
   
 }
-
 function getMovieData(event) {
   var keyCode = event.keyCode;
-  var searchText = searchInput.value.trim().toLowerCase();
+  var searchText = searchInput.val().trim();
 
   if (keyCode === 13 && searchText) {
-    var responsePromise = fetch(`https://www.omdbapi.com/?apikey=20dc4c7f&s=${searchText}`);
-
-    function handleResponse(responseObj) {
-      return responseObj.json();
-    }
-
-    responsePromise
-      .then(handleResponse)
-      .then(function (data) {
+    $.get('https://www.omdbapi.com/?i=tt3896198&apikey=f80e0653')
+      .then(function (data){
         displayMatches(data.Search);
       });
   }
+
 }
 
 function init() {
-  searchInput.addEventListener('keydown', getMovieData);
+  searchInput.keydown(getMovieData);
 }
+
+// function getMovieData(event) {
+//   var keyCode = event.keyCode;
+//   var searchText = searchInput.value.trim().toLowerCase();
+
+//   if (keyCode === 13 && searchText) {
+//     var responsePromise = fetch(`https://www.omdbapi.com/?apikey=20dc4c7f&s=${searchText}`);
+
+//     function handleResponse(responseObj) {
+//       return responseObj.json();
+//     }
+
+//     responsePromise
+//       .then(handleResponse)
+//       .then(function (data) {
+//         displayMatches(data.Search);
+//       });
+//   }
+// }
+
+// function init() {
+//   searchInput.addEventListener('keydown', getMovieData);
+// }
 
 init();
